@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff4e6;
+    color: #333;
+}
+
+header {
+    background-color: #ff8c42;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.hero {
+    text-align: center;
+    padding: 2rem;
+    background-color: #ffd3b6;
+}
+
+.hero h2 {
+    margin-bottom: 1rem;
+}
+
+.cta {
+    display: inline-block;
+    background-color: #ff8c42;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.menu ul, .contacto form {
+    max-width: 600px;
+    margin: auto;
+    padding: 1rem;
+}
+
+footer {
+    background-color: #ff8c42;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Casa de las Crepas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.5s ease;
+        }
+        header {
+            background-image: url('crepa.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-bottom: 5px solid #ffa31a;
+        }
+        header h1 {
+    margin: 0;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    font-family: 'Verdana', sans-serif;
+    color: #000; /* Cambia el color a negro */
+}
+header p {
+    margin: 0;
+    font-size: 2rem; /* Tamaño moderado */
+    font-family: 'Allergian', cursive; /* Fuente Allergian */
+    font-weight: normal; /* Grueso estándar */
+    color: #333; /* Color negro/gris oscuro para mejor visibilidad */
+    text-align: center;
+    letter-spacing: 1px; /* Espaciado leve entre letras */
+}
+
+        
+        /* Logo adicional en la esquina derecha */
+        .header-logo-right {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            width: 80px; /* Ajusta el tamaño del logo */
+            height: auto;
+        }
+        nav {
+            background-color: #ffa31a;
+            text-align: center;
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: #fff;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ffcc66;
+        }
+        .container {
+            width: 85%;
+            margin: 30px auto;
+            padding-bottom: 100px;
+        }
+        .section {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            border-bottom: 3px solid #ffa31a;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #ff7f32;
+        }
+        .section p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        .crepas-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .crepas-gallery img {
+            max-width: 220px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .crepas-gallery img:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            background-color: #ffcc66;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer p {
+            font-size: 1rem;
+        }
+        /* Animación para las secciones */
+        .section.active {
+            display: block;
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        /* Efecto de foco en el formulario */
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 1rem;
+        }
+        input:focus, textarea:focus {
+            border-color: #ff7f32;
+            outline: none;
+        }
+        button {
+            background-color: #ff7f32;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ffcc66;
+        }
+        /* Estilo para el enlace de Facebook */
+        .facebook-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #4267B2;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        .facebook-link:hover {
+            background-color: #365899;
+        }
+        /* Estilo para las imágenes de inicio */
+        .inicio-gallery {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .inicio-gallery img {
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .inicio-gallery img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        // Función para mostrar una sección y ocultar las demás
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Mostrar la sección seleccionada
+            const sectionToShow = document.getElementById(sectionId);
+            sectionToShow.classList.add('active');
+        }
+
+        // Mostrar la sección de inicio por defecto
+        window.onload = function() {
+            showSection('inicio');
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>La Casa de las Crepas</h1>
+        <p>¡Donde la creatividad se convierte en sabor!</p>
+        <!-- Logo adicional en la esquina derecha -->
+        <img src="logo.jpg" alt="Logo adicional" class="header-logo-right">
+    </header>
+    <nav>
+        <a href="javascript:void(0);" onclick="showSection('inicio')">Inicio</a>
+        <a href="javascript:void(0);" onclick="showSection('productos')">Productos</a>
+        <a href="javascript:void(0);" onclick="showSection('nosotros')">Sobre Nosotros</a>
+        <a href="javascript:void(0);" onclick="showSection('contacto')">Contacto</a>
+    </nav>
+    <div class="container">
+        <section id="inicio" class="section">
+            <h2>Inicio</h2>
+            <p>¡Bienvenidos a La Casa de las Crepas! Descubre nuestras deliciosas y únicas crepas animadas, hechas con amor y creatividad en Dzonot Carretero, Yucatán.</p>
+            <div class="inicio-gallery">
+                <img src="anuncio.png" alt="Imagen 1">
+             <p>¡No te pierdas la mejor experiencia en La Casa de las Crepas!               
+Disfruta de crepas deliciosas y llenas de cariño, en formas únicas y con los mejores ingredientes. Cada bocado es una sonrisa, perfecta para compartir con los que más quieres. ¡Ven y vive la felicidad en cada crepa!</p>   
+                <img src="casa.jpg" alt="Imagen 4">
+            </div>
+        </section>
+
+        <section id="productos" class="section">
+            <h2>Productos</h2>
+            <div class="product">
+                <h3>Animacrepas</h3>
+                <p><strong>Precio:</strong> $25 MXN</p>
+                <p><strong>Formas disponibles:</strong> Búhos, mariposas, gatos, balones y motos.</p>
+                <p><strong>Descripción:</strong> Crepas de tamaño mediano, textura suave y color dorado. Servidas en un plato desechable con el logo de nuestra marca.</p>
+                <p><strong>Sabores:</strong> Dulces (chocolate, fresas).</p>
+            </div>
+            <!-- Espacio para las imágenes de las crepas -->
+            <div class="crepas-gallery">
+                <img src="balon.jpg" alt="Crepa animada 1">
+                <img src="gato.jpg" alt="Crepa animada 2">
+                <img src="buho.jpg" alt="Crepa animada 3">
+                <img src="mariposa.jpg" alt="Crepa animada 4">
+            </div>
+        </section>
+
+        <section id="nosotros" class="section">
+            <h2>Sobre Nosotros</h2>
+            <p><strong>Historia:</strong> La Casa de las Crepas nace con el objetivo de ofrecer un producto único e innovador en la comunidad de Dzonot Carretero. Con nuestras crepas animadas, buscamos no solo deleitar el paladar, sino también brindar una experiencia divertida y creativa.</p>
+            <p><strong>Misión:</strong> Ofrecer productos de alta calidad, hechos con ingredientes frescos, a precios accesibles, fortaleciendo la economía local.</p>
+            <p><strong>Visión:</strong> Convertirnos en la opción preferida de crepas en Yucatán, combinando creatividad, sabor y responsabilidad social.</p>
+        </section>
+
+        <section id="contacto" class="section">
+            <h2>Contacto</h2>
+            <p><strong>Dirección:</strong> Calle 25 entre 26/27 S/N, cerca del parque principal, Dzonot Carretero, Yucatán.</p>
+            <p><strong>Horario:</strong> Lunes y viernes, 6:30 PM - 9:00 PM</p>
+            <p><strong>Teléfono:</strong> 963-308-2436</p>
+            <form>
+                <h3>Envíanos un mensaje</h3>
+                <label for="nombre">Nombre:</label><br>
+                <input type="text" id="nombre" name="nombre" required><br><br>
+                <label for="email">Correo electrónico:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="mensaje">Mensaje:</label><br>
+                <textarea id="mensaje" name="mensaje" rows="4" required></textarea><br><br>
+                <button type="submit">Enviar</button>
+            </form>
+            <a href="https://www.facebook.com/share/15srGqvfSA/" class="facebook-link" target="_blank">¡Síguenos en Facebook!</a>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 La Casa de las Crepas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
